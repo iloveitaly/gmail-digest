@@ -1,0 +1,7 @@
+token.pickle
+credentials.json
+.envrc
+.venv
+
+/*.csv
+/template*

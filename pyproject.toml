@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "gmail_draft_creator"
+version = "1.3.1"
+description = "Simple tool to take a CSV and a template and create drafts in your Gmail. Can be used as a command line tool, or as a library."
+authors = ["Michael Bianco <mike@mikebian.co>"]
+license = "MIT"
+readme = "readme.md"
+homepage = "https://github.com/iloveitaly/gmail-draft-creator"
+keywords = ["gmail", "email", "gmail-api"]
+
+[project.urls]
+'Changelog' = 'https://github.com/iloveitaly/gmail-draft-creator/blob/master/CHANGELOG.md'
+
+[tool.poetry.dependencies]
+python = "^3.9"
+google-api-python-client = "^2.97.0"
+python-decouple = "^3.5"
+google-auth-httplib2 = ">=0.1,<0.3"
+google-auth-oauthlib = ">=0.4.6,<1.3.0"
+click = "^8.1.7"
+markdown = "^3.5.1"
+
+[tool.poetry.scripts]
+gmail-draft-creator = "gmail_draft_creator:main"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.1.1"
+isort = "^5.12.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+target-version = ['py311']
+exclude = '''
+/(
+  .venv
+  | node_modules
+  | migrations
+)/
+'''
+
+# when changing this config, you need to restart your vscode isort server
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+sections = "SETUP,FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,PRISMA,LOCALFOLDER"
+known_setup = "python.setup"
+known_prisma = "prisma"
