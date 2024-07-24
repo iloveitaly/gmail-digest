@@ -1,6 +1,7 @@
 .mypy_cache
 .venv
 __pycache__
+.ipython_history
 
 token.pickle
 credentials.json

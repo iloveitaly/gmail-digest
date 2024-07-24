@@ -1,5 +1,4 @@
 import base64
-import csv
 import logging
 import os
 import pickle
@@ -18,8 +17,9 @@ from googleapiclient.discovery import build
 SCOPES = [
     "https://www.googleapis.com/auth/gmail.compose",
     "https://www.googleapis.com/auth/gmail.readonly",
-    "https://www.googleapis.com/auth/calendar.readonly",
-    "https://www.googleapis.com/auth/calendar.events",
+    # "https://www.googleapis.com/auth/gmail.metadata",
+    "https://www.googleapis.com/auth/gmail.labels",
+    "https://www.googleapis.com/auth/gmail.modify",
 ]
 
 
@@ -52,42 +52,43 @@ def _process_template_string(raw_template_string):
     return subject, template_string
 
 
-def send_drafts_from_csv(csv_file_path, template_file_path, subject, dry_run):
-    with open(template_file_path, "r") as template_file:
-        template_string = template_file.read()
+# def send_drafts_from_csv(csv_file_path, template_file_path, subject, dry_run):
+#     with open(template_file_path, "r") as template_file:
+#         template_string = template_file.read()
 
-    with open(csv_file_path, "r") as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            email = None
+#     with open(csv_file_path, "r") as file:
+#         reader = csv.DictReader(file)
+#         for row in reader:
+#             email = None
 
-            for key in row.keys():
-                if key.lower() == 'email':
-                    email = row[key]
-                    break
+#             for key in row.keys():
+#                 if key.lower() == 'email':
+#                     email = row[key]
+#                     break
 
-            if email:
-                email = email.strip()
+#             if email:
+#                 email = email.strip()
 
-            if email is None:
-                print("No email found for row, skipping")
-                continue
+#             if email is None:
+#                 print("No email found for row, skipping")
+#                 continue
 
-            def normalize_key(key):
-                cleaned_key = key.lower().strip()
-                cleaned_key = re.sub(r'\W+', '', cleaned_key)
-                return cleaned_key
+#             def normalize_key(key):
+#                 cleaned_key = key.lower().strip()
+#                 cleaned_key = re.sub(r'\W+', '', cleaned_key)
+#                 return cleaned_key
 
-            # each column in the CSV is passed as a parameter to the template
-            template_params = {normalize_key(k): v.strip() for k, v in row.items()}
+#             # each column in the CSV is passed as a parameter to the template
+#             template_params = {normalize_key(k): v.strip() for k, v in row.items()}
 
-            if email is not None:
-                create_draft(email, template_string, template_params, subject, dry_run)
+#             if email is not None:
+#                 create_draft(email, template_string, template_params, subject, dry_run)
 
 
 # TODO this should really be much smarter
 def _extract_credentials():
     creds = None
+
     if os.path.exists("token.pickle"):
         with open("token.pickle", "rb") as token:
             creds = pickle.load(token)
@@ -142,4 +143,3 @@ def create_draft(email, template_string, template_params, subject=None, dry_run=
 
 def main():
     logging.basicConfig(level=logging.INFO)
-    send_drafts_from_csv_cli()
