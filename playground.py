@@ -9,7 +9,7 @@ import funcy as f
 import funcy_pipe as fp
 from googleapiclient.discovery import build
 
-from gmail_digest import _extract_credentials
+from gmail_digest import _extract_credentials, send_digest
 
 DIGEST_DAYS = 1
 
@@ -167,4 +167,5 @@ def ai_summary(text):
     return chat_completion.choices[0].message.content
 
 summary = ai_summary(prompt_and_messages)
+send_digest(summary)
 print(summary)
