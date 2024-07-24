@@ -11,6 +11,7 @@ from googleapiclient.discovery import build
 
 from gmail_digest import _extract_credentials
 
+DIGEST_DAYS = 1
 
 def get_header(message, header):
     header = message['payload']['headers'] | fp.where(name=header) | fp.first()
@@ -70,7 +71,7 @@ def extract_html_and_plain_text(parts):
 
 def get_sent_messages(service):
     now = datetime.datetime.utcnow()
-    yesterday = now - datetime.timedelta(days=7)
+    yesterday = now - datetime.timedelta(days=DIGEST_DAYS)
     query = f'after:{int(yesterday.timestamp())} before:{int(now.timestamp())}'
 
     results = service.users().messages().list(userId='me', q=query, labelIds=['SENT']).execute()
@@ -144,4 +145,26 @@ Below are the messages:
 {formatted_markdown}
 """
 
-print(prompt_and_messages)
+from openai import OpenAI
+
+
+def ai_summary(text):
+    client = OpenAI(
+      # This is the default and can be omitted
+      # api_key=os.environ.get("OPENAI_API_KEY"),
+    )
+
+    chat_completion = client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": text,
+            }
+        ],
+        model="gpt-4o",
+    )
+
+    return chat_completion.choices[0].message.content
+
+summary = ai_summary(prompt_and_messages)
+print(summary)
