@@ -1,4 +1,5 @@
 import base64
+import datetime
 import logging
 import os
 import pickle
@@ -9,6 +10,7 @@ from string import Template
 
 import click
 import markdown
+from decouple import config
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -21,21 +23,19 @@ SCOPES = [
     "https://www.googleapis.com/auth/gmail.labels",
     "https://www.googleapis.com/auth/gmail.modify",
 ]
-from decouple import config
 
 DIGEST_DESTINATION = config("DIGEST_DESTINATION", cast=str)
 
 
 @click.command()
-@click.option("--csv", "csv_file_path", type=click.Path(exists=True), help="Path to the CSV file.", required=True)
-@click.option(
-    "--template", "template_file_path", type=click.Path(exists=True), help="Path to the template file.", required=True
-)
-@click.option("--subject", "subject", type=str, help="Subject for the email drafts.", required=False)
-@click.option("--dry-run", is_flag=True, default=False, help="Run script without creating drafts.")
-def send_drafts_from_csv_cli(csv_file_path, template_file_path, subject, dry_run):
-    send_drafts_from_csv(csv_file_path, template_file_path, subject, dry_run)
+@click.option("--dry-run", is_flag=True, default=False, help="Run script without creating sending")
+def main(dry_run):
+    logging.basicConfig(level=logging.INFO)
+    generate_digest_email(dry_run)
 
+
+def generate_digest_email(dry_run):
+    pass
 
 
 # TODO this should really be much smarter
@@ -57,8 +57,6 @@ def _extract_credentials():
 
     return creds
 
-import datetime
-
 
 def send_digest(markdown_content, dry_run=False):
     creds = _extract_credentials()
@@ -78,10 +76,3 @@ def send_digest(markdown_content, dry_run=False):
         sent_message = service.users().messages().send(userId="me", body=body).execute()
 
     logging.info(f"digest email sent")
-
-
-def main():
-    logging.basicConfig(level=logging.INFO)
-def main():
-    logging.basicConfig(level=logging.INFO)
-    logging.basicConfig(level=logging.INFO)
