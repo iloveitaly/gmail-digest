@@ -7,8 +7,11 @@ on:
       - main
 
 # by default, permissions are read-only, read + write is required for git pushes
-permissions:
-  contents: write
+permissions: write-all
+
+env:
+  PIP_DEFAULT_TIMEOUT: 60
+  PIP_RETRIES: 5
 
 jobs:
   build-and-publish:
