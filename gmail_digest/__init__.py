@@ -32,6 +32,7 @@ SCOPES = [
 
 DIGEST_DESTINATION = config("DIGEST_DESTINATION", cast=str)
 DIGEST_DAYS = config("DIGEST_DAYS", cast=int, default=1)
+SUPERHUMAN_LINK = config("SUPERHUMAN_LINK", cast=bool, default=True)
 
 TOKEN_PATH = root / "data/token.pickle"
 CREDENTIALS_PATH = root / "data/credentials.json"
@@ -56,13 +57,14 @@ def generate_digest_email(dry_run):
         | fp.map(truncate_long_threads)
         | fp.to_list()
     )
+
     formatted_markdown = transformed_messages | fp.map(format_message) | fp.join_str("\n")
 
     prompt_and_messages = f"""
 Below are messages sent from my email account over the last day. I would like a concise summary of my activity over the last day. I am not the
 only one operating in my inbox.
 
-for each message add a bullet indicating who the message is to and a one-sentence summary of what was said.
+For each message, write a bullet indicating who the message is to and a one-sentence summary of what was said.
 
 Exclude:
 
@@ -70,17 +72,22 @@ Exclude:
 * forwarded verification code emails
 * messages sent to todoist
 
-Here's an example bullet:
+Here are some example summaries to use as a template:
 
-* **John Doe.** Asked when he would be available to meet.
-* **Jane Doe.** Reminded her of previous unanswered email.
+* 190e654d26e12dcd **John Doe.** Asked when he would be available to meet.
+* 190ea77b5760880c **Jane Doe.** Reminded her of previous unanswered email.
+
+These alphanumeric IDs are 'Message IDs' included right after the subject of the email. These are unique to each message.
 
 Below are the messages:
 
 {formatted_markdown}
 """
     summary = ai_summary(prompt_and_messages)
-    send_digest(summary)
+    summary_with_gmail_links = add_gmail_links(service, summary)
+    send_digest(summary_with_gmail_links)
+
+    log.debug("summary content", content=summary_with_gmail_links)
 
 
 def _extract_credentials():
@@ -102,10 +109,18 @@ def _extract_credentials():
     return creds
 
 
-def send_digest(markdown_content, dry_run=False):
-    creds = _extract_credentials()
-    service = build("gmail", "v1", credentials=creds)
+def get_authenticated_email(service):
+    user_profile = service.users().getProfile(userId="me").execute()
+    return user_profile["emailAddress"]
 
+
+def build_gmail_service():
+    creds = _extract_credentials()
+    return build("gmail", "v1", credentials=creds)
+
+
+def send_digest(markdown_content, dry_run=False):
+    service = build_gmail_service()
     message = MIMEMultipart("alternative")
     message["to"] = DIGEST_DESTINATION
     message["subject"] = f"Email Digest for {datetime.datetime.now().strftime('%Y-%m-%d')}"
@@ -128,9 +143,41 @@ def get_header(message, header_name):
     header = headers | fp.filter(lambda h: h["name"].upper() == header_name.upper()) | fp.first()
 
     if not header:
-        log.info("header not found", header=header_name)
+        log.warn("header not found", header=header_name)
 
     return header["value"]
+
+
+def add_gmail_links(service, summary: str):
+    """
+    Assumes summary contains format `* 190e654d26e12dcd **John Doe.** ...`
+
+    This will hyperlink the name to the Gmail message.
+    """
+
+    account_email = get_authenticated_email(service)
+
+    if SUPERHUMAN_LINK:
+        link_generator = fp.partial(generate_superhuman_link, account_email)
+    else:
+        link_generator = generate_gmail_link
+
+    def replace_match(match):
+        return f"* [{match.group(2)}]({link_generator(match.group(1))})"
+
+    lines = summary.splitlines()
+    processed_lines = [re.sub(r"\*\s([0-9a-f]+)\s\*\*([^*]+)\*\*", replace_match, line) for line in lines]
+    return "\n".join(processed_lines)
+
+
+def generate_gmail_link(message_id: str) -> str:
+    return f"https://mail.google.com/mail/u/0/#inbox/{message_id}"
+
+
+def generate_superhuman_link(account_email: str, message_id: str) -> str:
+    "Similar to gmail format: https://mail.superhuman.com/email@address.com/thread/190e9d7e51d6425c#app"
+
+    return f"https://mail.superhuman.com/{account_email}/thread/{message_id}#app"
 
 
 def get_full_message(service, message_id):
@@ -153,6 +200,8 @@ def get_full_message(service, message_id):
     subject = get_header(message, "Subject")
 
     return {
+        "id": message_id,
+        "thread_id": message["threadId"],
         "from": from_email,
         "to": to_email,
         "subject": subject,
@@ -187,19 +236,24 @@ def extract_html_and_plain_text(parts):
 
 
 def get_sent_messages(service):
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now()
     yesterday = now - datetime.timedelta(days=DIGEST_DAYS)
-    query = f"after:{int(yesterday.timestamp())} before:{int(now.timestamp())}"
+    query = f"after:{int(yesterday.timestamp())} before:{int(now.timestamp())} -subject:(Email Digest for)"
+
+    log.info("searching for messages", query=query)
 
     results = service.users().messages().list(userId="me", q=query, labelIds=["SENT"]).execute()
     messages = results.get("messages", [])
+
+    log.info("messages found", count=len(messages))
     return messages
 
 
 def format_message(message):
     return f"""
-# {message['subject']}
+# [message]: {message['subject']}
 
+**Message ID:** {message['thread_id']}
 **From:** {message['from']}
 **To:** {message['to']}
 
@@ -216,8 +270,8 @@ def truncate_long_threads(message):
 
     In plain text, threads are structured like:
 
-    > On Thu, Jun 13 , 2024 at 3:06 PM, Scott King < SEKing@ franciscan. edu (
-    > SEKing@franciscan.edu ) > wrote:
+    > On Thu, Jun 13 , 2024 at 3:06 PM, Scott Prince < SEKing@ school. edu (
+    > SEKing@school.edu ) > wrote:
     >
     >> Hi Mike,
     >>
@@ -230,7 +284,6 @@ def truncate_long_threads(message):
     """
 
     plain_text_message = message["plain_text"]
-    # thread_pattern = re.compile(r"^>{2,}\s")
     truncated_plain_text = plain_text_message.split("\n") | fp.remove("^>{2,}\s") | fp.join_str("\n")
 
     message["truncated_plain_text"] = truncated_plain_text
