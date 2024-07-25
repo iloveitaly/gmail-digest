@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/iloveitaly/gmail-digest/compare/v1.2.0...v1.2.1) (2024-07-25)
+
+
+### Bug Fixes
+
+* try gh container login ([769306d](https://github.com/iloveitaly/gmail-digest/commit/769306d41d13662768fa61e8fe4a50382100f313))
+
+
+
 # [1.2.0](https://github.com/iloveitaly/gmail-digest/compare/v1.1.0...v1.2.0) (2024-07-25)
 
 
