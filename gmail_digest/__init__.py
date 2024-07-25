@@ -20,7 +20,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from openai import OpenAI
 
-from .util import log
+from .util import log, root
 
 SCOPES = [
     "https://www.googleapis.com/auth/gmail.compose",
@@ -33,6 +33,9 @@ SCOPES = [
 DIGEST_DESTINATION = config("DIGEST_DESTINATION", cast=str)
 DIGEST_DAYS = config("DIGEST_DAYS", cast=int, default=1)
 
+TOKEN_PATH = root / "data/token.pickle"
+CREDENTIALS_PATH = root / "data/credentials.json"
+
 
 @click.command()
 @click.option("--dry-run", is_flag=True, default=False, help="Run script without creating sending")
@@ -44,6 +47,7 @@ def main(dry_run):
 def generate_digest_email(dry_run):
     creds = _extract_credentials()
     service = build("gmail", "v1", credentials=creds)
+
     messages = get_sent_messages(service)
     transformed_messages = (
         messages
@@ -79,21 +83,20 @@ Below are the messages:
     send_digest(summary)
 
 
-# TODO this should really be much smarter
 def _extract_credentials():
     creds = None
 
-    if os.path.exists("token.pickle"):
-        with open("token.pickle", "rb") as token:
+    if TOKEN_PATH.exists():
+        with open(TOKEN_PATH, "rb") as token:
             creds = pickle.load(token)
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file(CREDENTIALS_PATH, SCOPES)
             creds = flow.run_local_server(port=0)
-        with open("token.pickle", "wb") as token:
+        with open(TOKEN_PATH, "wb") as token:
             pickle.dump(creds, token)
 
     return creds
@@ -126,7 +129,6 @@ def get_header(message, header_name):
 
     if not header:
         log.info("header not found", header=header_name)
-        breakpoint()
 
     return header["value"]
 
@@ -236,11 +238,7 @@ def truncate_long_threads(message):
 
 
 def ai_summary(text):
-    client = OpenAI(
-        # This is the default and can be omitted
-        # api_key=os.environ.get("OPENAI_API_KEY"),
-    )
-
+    client = OpenAI()
     chat_completion = client.chat.completions.create(
         messages=[
             {

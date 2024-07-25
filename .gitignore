@@ -3,8 +3,9 @@
 __pycache__
 .ipython_history
 
-token.pickle
-credentials.json
+data/token.pickle
+data/credentials.json
+
 .envrc
 .venv
 

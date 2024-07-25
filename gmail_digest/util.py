@@ -1,5 +1,6 @@
 import logging
 import typing as t
+from pathlib import Path
 
 import structlog
 from decouple import config
@@ -48,7 +49,9 @@ def setup():
     if hasattr(setup, "complete") and setup.complete:
         return
 
-    global log
+    global log, root
+
+    root = Path(__file__).parent.parent
 
     log = structlog.get_logger()
     configure_logger()

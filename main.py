@@ -3,7 +3,8 @@ import os
 import click
 from apscheduler.schedulers.background import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
-from github_overlord import cli
+
+from gmail_digest import cli
 
 
 def handle_click_exit(func):
