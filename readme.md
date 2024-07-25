@@ -1,4 +1,4 @@
-# Gmail Drafter: Create Mail Merge Drafts
+# Gmail Digest
 
 Simple tool to take a CSV and a template and create drafts in your Gmail. Useful for sending emails to large-ish numbers
 of people where you want to slightly customize the emails for each user. You can quickly run through drafts, customize it, and send.
@@ -6,7 +6,7 @@ of people where you want to slightly customize the emails for each user. You can
 ## Installation
 
 ```shell
-pip install -U gmail-draft-creator
+pip install -U gmail-digest
 ```
 
 ## Usage
@@ -23,32 +23,6 @@ Options:
 ```
 
 You can also import the `create_draft` function and use it in your own scripts.
-
-### CSV Files
-
-Must contain an `email` column (case insensitive).
-
-Each column in the CSV is passed as a parameter to the provided template. The column name is stripped of whitespace, lowercased, and stripped all non-alpha characters. For example, a column named `First Name` would be passed as `$firstname` in the template.
-
-#### Example CSV File
-
-A CSV file that would work with this template might be something like this:
-
-```csv
-Email,Name,Reason,OtherColumn
-joe@test.com,Joe,reminder
-jeff@email.com,Jeff,sales pitch
-```
-
-### Template Files
-
-You can include subject line and variables in the template file:
-
-```text
-Subject: Hello $NAME
-
-Hi, here's another ${REASON} why I'm emailing you.
-```
 
 ## Setup
 
