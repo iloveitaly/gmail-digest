@@ -1,3 +1,12 @@
+## [1.2.2](https://github.com/iloveitaly/gmail-digest/compare/v1.2.1...v1.2.2) (2024-07-25)
+
+
+### Bug Fixes
+
+* another attempt at fixing docker builds ([f23a8cc](https://github.com/iloveitaly/gmail-digest/commit/f23a8cc579103278f01bcb50b3237fc1369c391b))
+
+
+
 ## [1.2.1](https://github.com/iloveitaly/gmail-digest/compare/v1.2.0...v1.2.1) (2024-07-25)
 
 
