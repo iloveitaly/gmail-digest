@@ -1,0 +1,16 @@
+services:
+  github-overlord:
+    image: ghcr.io/iloveitaly/gmail-digest:latest
+    restart: always
+    environment:
+      - OPENAI_API_KEY=
+      - DIGEST_DESTINATION=
+      - SCHEDULE="0 0 * * *"
+      # the container will *not* assume the TZ of the host without this
+      # make sure your host has this set as well!
+      - TZ=${TZ}
+    volumes:
+      - github_overlord:/app/data
+
+volumes:
+  github_overlord:
