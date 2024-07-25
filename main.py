@@ -4,7 +4,7 @@ import click
 from apscheduler.schedulers.background import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 
-from gmail_digest import cli
+from gmail_digest import main
 
 
 def handle_click_exit(func):
@@ -19,8 +19,7 @@ def handle_click_exit(func):
 
 
 def job():
-    for command in list(cli.commands.values()):
-        handle_click_exit(command)()
+    handle_click_exit(main)()
 
 
 def cron():

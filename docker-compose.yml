@@ -1,5 +1,5 @@
 services:
-  github-overlord:
+  gmail_digest:
     image: ghcr.io/iloveitaly/gmail-digest:latest
     restart: always
     environment:
@@ -10,7 +10,7 @@ services:
       # make sure your host has this set as well!
       - TZ=${TZ}
     volumes:
-      - github_overlord:/app/data
+      - gmail_digest:/app/data
 
 volumes:
-  github_overlord:
+  gmail_digest:
