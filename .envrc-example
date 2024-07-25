@@ -1,0 +1,4 @@
+layout poetry
+
+export OPENAI_API_KEY="<your_openai_api_key>"
+export DIGEST_DESTINATION="<your_email@example.com>"
