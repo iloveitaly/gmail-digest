@@ -1,8 +1,5 @@
 # Gmail Digest
 
-Simple tool to take a CSV and a template and create drafts in your Gmail. Useful for sending emails to large-ish numbers
-of people where you want to slightly customize the emails for each user. You can quickly run through drafts, customize it, and send.
-
 ## Installation
 
 ```shell
@@ -12,17 +9,12 @@ pip install -U gmail-digest
 ## Usage
 
 ```shell
-Usage: gmail-draft-creator [OPTIONS]
+Usage: gmail-digest [OPTIONS]
 
 Options:
-  --csv PATH       Path to the CSV file.  [required]
-  --template PATH  Path to the template file.  [required]
-  --subject TEXT   Subject for the email drafts.
-  --dry-run        Run script without creating drafts.
-  --help           Show this message and exit.
+  --dry-run  Run script without creating sending
+  --help     Show this message and exit.
 ```
-
-You can also import the `create_draft` function and use it in your own scripts.
 
 ## Setup
 
@@ -60,8 +52,3 @@ Some other scopes I'd add so you can reuse the credentials in other projects, [l
 * `https://www.googleapis.com/auth/calendar.event`
 * `https://www.googleapis.com/auth/gmail.labels`
 * `https://www.googleapis.com/auth/gmail.settings.basic`
-
-## TODO
-
-- [ ] add credentials as a command line argument
-- [ ] add serialized token as a CLI argument
