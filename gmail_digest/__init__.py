@@ -166,7 +166,7 @@ def add_gmail_links(service, summary: str):
         return f"* [{match.group(2)}]({link_generator(match.group(1))})"
 
     lines = summary.splitlines()
-    processed_lines = [re.sub(r"\*\s([0-9a-f]+)\s\*\*([^*]+)\*\*", replace_match, line) for line in lines]
+    processed_lines = [re.sub(r"\*\s([0-9a-z]+)\s\*\*([^*]+)\*\*", replace_match, line) for line in lines]
     return "\n".join(processed_lines)
 
 
