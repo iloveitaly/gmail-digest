@@ -2,12 +2,10 @@ import base64
 import datetime
 import email
 import logging
-import os
 import pickle
 import re
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from string import Template
 
 import click
 import funcy as f
