@@ -1,3 +1,12 @@
+## [1.2.5](https://github.com/iloveitaly/gmail-digest/compare/v1.2.4...v1.2.5) (2024-07-28)
+
+
+### Bug Fixes
+
+* do not send empty digests ([8c681f2](https://github.com/iloveitaly/gmail-digest/commit/8c681f2992f5716d969fc04ec5ebc4e2e7bff96f))
+
+
+
 ## [1.2.4](https://github.com/iloveitaly/gmail-digest/compare/v1.2.3...v1.2.4) (2024-07-26)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * try gh container login ([769306d](https://github.com/iloveitaly/gmail-digest/commit/769306d41d13662768fa61e8fe4a50382100f313))
-
-
-
-# [1.2.0](https://github.com/iloveitaly/gmail-digest/compare/v1.1.0...v1.2.0) (2024-07-25)
-
-
-### Features
-
-* docs cleanup, trigger new build ([695598d](https://github.com/iloveitaly/gmail-digest/commit/695598d5f3eb8c951dedcaef5a72c56912056553))
 
 
 
