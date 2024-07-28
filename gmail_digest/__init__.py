@@ -48,6 +48,7 @@ def generate_digest_email(dry_run):
     service = build("gmail", "v1", credentials=creds)
 
     messages = get_sent_messages(service)
+
     transformed_messages = (
         messages
         | fp.pluck("id")
@@ -70,6 +71,8 @@ Exclude:
 * forwarded verification code emails
 * messages sent to todoist
 
+If after excluding these messages, there are no messages left, return an empty string.
+
 Here are some example summaries to use as a template:
 
 * 190e654d26e12dcd **John Doe.** Asked when he would be available to meet.
@@ -82,6 +85,11 @@ Below are the messages:
 {formatted_markdown}
 """
     summary = ai_summary(prompt_and_messages)
+
+    if not summary:
+        log.info("no messages to summarize")
+        return
+
     summary_with_gmail_links = add_gmail_links(service, summary)
     send_digest(summary_with_gmail_links)
 
