@@ -37,7 +37,7 @@ CREDENTIALS_PATH = root / "data/credentials.json"
 
 
 @click.command()
-@click.option("--dry-run", is_flag=True, default=False, help="Run script without creating sending")
+@click.option("--dry-run", is_flag=True, default=False, help="Run script without sending an email")
 def main(dry_run):
     logging.basicConfig(level=logging.INFO)
     generate_digest_email(dry_run)
@@ -63,7 +63,7 @@ def generate_digest_email(dry_run):
 Below are messages sent from my email account over the last day. I would like a concise summary of my activity over the last day. I am not the
 only one operating in my inbox.
 
-For each message, write a bullet indicating who the message is to and a one-sentence summary of what was said.
+For each message, write a bullet indicating who the message is to and a one-sentence summary of what was said. If an assistant sent the message, include context about who the assistant is working for.
 
 Exclude:
 
@@ -296,13 +296,13 @@ def truncate_long_threads(message):
     return message
 
 
-def ai_summary(text):
+def ai_summary(prompt):
     client = OpenAI()
     chat_completion = client.chat.completions.create(
         messages=[
             {
                 "role": "user",
-                "content": text,
+                "content": prompt,
             }
         ],
         model="gpt-4o",
