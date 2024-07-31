@@ -1,3 +1,12 @@
+## [1.2.6](https://github.com/iloveitaly/gmail-digest/compare/v1.2.5...v1.2.6) (2024-07-31)
+
+
+### Bug Fixes
+
+* add prompt to determine if an assistant is scheduling ([5af3f7d](https://github.com/iloveitaly/gmail-digest/commit/5af3f7d0af34d8b08707fe0490c792e7fe52cd5a))
+
+
+
 ## [1.2.5](https://github.com/iloveitaly/gmail-digest/compare/v1.2.4...v1.2.5) (2024-07-28)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * another attempt at fixing docker builds ([f23a8cc](https://github.com/iloveitaly/gmail-digest/commit/f23a8cc579103278f01bcb50b3237fc1369c391b))
-
-
-
-## [1.2.1](https://github.com/iloveitaly/gmail-digest/compare/v1.2.0...v1.2.1) (2024-07-25)
-
-
-### Bug Fixes
-
-* try gh container login ([769306d](https://github.com/iloveitaly/gmail-digest/commit/769306d41d13662768fa61e8fe4a50382100f313))
 
 
 
