@@ -37,6 +37,9 @@ CREDENTIALS_PATH = root / "data/credentials.json"
 
 OPENAI_MODEL = "gpt-4o"
 
+EMAIL_SUBJECT_PREFIX = "Email Digest for "
+GMAIL_FILTER_SUFFIX = config("GMAIL_FILTER_SUFFIX", default="")
+
 
 @click.command()
 @click.option("--dry-run", is_flag=True, default=False, help="Run script without sending an email")
@@ -71,7 +74,7 @@ Exclude:
 
 * unsubscribe requests
 * forwarded verification code emails
-* messages sent to todoist
+* messages sent to todoist and readwise
 
 If after excluding these messages, there are no messages left, return an empty string.
 
@@ -131,7 +134,8 @@ def send_digest(markdown_content, dry_run=False):
     service = build_gmail_service()
     message = MIMEMultipart("alternative")
     message["to"] = DIGEST_DESTINATION
-    message["subject"] = f"Email Digest for {datetime.datetime.now().strftime('%Y-%m-%d')}"
+    # TODO should allow customization here
+    message["subject"] = f"{EMAIL_SUBJECT_PREFIX}{datetime.datetime.now().strftime('%Y-%m-%d')}"
     content = markdown.markdown(markdown_content)
     message.attach(MIMEText(content, "html"))
 
@@ -246,7 +250,7 @@ def extract_html_and_plain_text(parts):
 def get_sent_messages(service):
     now = datetime.datetime.now()
     yesterday = now - datetime.timedelta(days=DIGEST_DAYS)
-    query = f"after:{int(yesterday.timestamp())} before:{int(now.timestamp())} -subject:(Email Digest for)"
+    query = f"after:{int(yesterday.timestamp())} before:{int(now.timestamp())} -subject:({EMAIL_SUBJECT_PREFIX}) {GMAIL_FILTER_SUFFIX}".strip()
 
     log.info("searching for messages", query=query)
 

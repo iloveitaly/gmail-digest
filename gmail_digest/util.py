@@ -56,13 +56,6 @@ def setup():
     log = structlog.get_logger()
     configure_logger()
 
-    try:
-        import pretty_traceback
-
-        pretty_traceback.install()
-    except ImportError:
-        pass
-
     # local state in a method is strange, but it works :/
     setup.complete = True
 

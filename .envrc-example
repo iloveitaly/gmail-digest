@@ -3,3 +3,6 @@ layout poetry
 export OPENAI_API_KEY="<your_openai_api_key>"
 export DIGEST_DESTINATION="<your_email@example.com>"
 export SCHEDULE="0 8 * * *"
+
+# optional
+export GMAIL_FILTER_SUFFIX="-from:whoever"
