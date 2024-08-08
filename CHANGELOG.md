@@ -1,3 +1,12 @@
+# [1.3.0](https://github.com/iloveitaly/gmail-digest/compare/v1.2.6...v1.3.0) (2024-08-08)
+
+
+### Features
+
+* wait for internet connection ([6bfb06d](https://github.com/iloveitaly/gmail-digest/commit/6bfb06d66692aec23f598197f32e7ede039f6ecd))
+
+
+
 ## [1.2.6](https://github.com/iloveitaly/gmail-digest/compare/v1.2.5...v1.2.6) (2024-07-31)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * scheduler entrypoint ([f0ff2c2](https://github.com/iloveitaly/gmail-digest/commit/f0ff2c2412813f4caa85bebafbc2b05e8e205240))
-
-
-
-## [1.2.2](https://github.com/iloveitaly/gmail-digest/compare/v1.2.1...v1.2.2) (2024-07-25)
-
-
-### Bug Fixes
-
-* another attempt at fixing docker builds ([f23a8cc](https://github.com/iloveitaly/gmail-digest/commit/f23a8cc579103278f01bcb50b3237fc1369c391b))
 
 
 
