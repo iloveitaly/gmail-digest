@@ -5,6 +5,7 @@ from apscheduler.schedulers.background import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 
 from gmail_digest import main
+from gmail_digest.internet import wait_for_internet_connection
 
 
 def handle_click_exit(func):
@@ -19,6 +20,8 @@ def handle_click_exit(func):
 
 
 def job():
+    wait_for_internet_connection()
+
     handle_click_exit(main)()
 
 

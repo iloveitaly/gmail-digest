@@ -35,6 +35,8 @@ SUPERHUMAN_LINK = config("SUPERHUMAN_LINK", cast=bool, default=True)
 TOKEN_PATH = root / "data/token.pickle"
 CREDENTIALS_PATH = root / "data/credentials.json"
 
+OPENAI_MODEL = "gpt-4o"
+
 
 @click.command()
 @click.option("--dry-run", is_flag=True, default=False, help="Run script without sending an email")
@@ -305,7 +307,7 @@ def ai_summary(prompt):
                 "content": prompt,
             }
         ],
-        model="gpt-4o",
+        model=OPENAI_MODEL,
     )
 
     return chat_completion.choices[0].message.content
