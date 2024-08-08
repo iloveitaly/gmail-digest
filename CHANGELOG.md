@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/iloveitaly/gmail-digest/compare/v1.3.0...v1.4.0) (2024-08-08)
+
+
+### Features
+
+* allow custom gmail search suffix ([8e93e1a](https://github.com/iloveitaly/gmail-digest/commit/8e93e1a7c9d629f4f972201923749d197eaffd07))
+
+
+
 # [1.3.0](https://github.com/iloveitaly/gmail-digest/compare/v1.2.6...v1.3.0) (2024-08-08)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * bad regex ([20ec57e](https://github.com/iloveitaly/gmail-digest/commit/20ec57e1ca5098c48f7c0be3999ad2c470a66049))
-
-
-
-## [1.2.3](https://github.com/iloveitaly/gmail-digest/compare/v1.2.2...v1.2.3) (2024-07-25)
-
-
-### Bug Fixes
-
-* scheduler entrypoint ([f0ff2c2](https://github.com/iloveitaly/gmail-digest/commit/f0ff2c2412813f4caa85bebafbc2b05e8e205240))
 
 
 
