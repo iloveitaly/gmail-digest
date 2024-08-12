@@ -76,8 +76,6 @@ Exclude:
 * forwarded verification code emails
 * messages sent to todoist and readwise
 
-If after excluding these messages, there are no messages left, return an empty string.
-
 Here are some example summaries to use as a template:
 
 * 190e654d26e12dcd **John Doe.** Asked when he would be available to meet.
@@ -85,10 +83,13 @@ Here are some example summaries to use as a template:
 
 These alphanumeric IDs are 'Message IDs' included right after the subject of the email. These are unique to each message.
 
+If you cannot generate a summary, return an empty string.
+
 Below are the messages:
 
 {formatted_markdown}
 """
+
     summary = ai_summary(prompt_and_messages)
 
     if not summary:
@@ -249,12 +250,13 @@ def extract_html_and_plain_text(parts):
 
 def get_sent_messages(service):
     now = datetime.datetime.now()
-    yesterday = now - datetime.timedelta(days=DIGEST_DAYS)
-    query = f"after:{int(yesterday.timestamp())} before:{int(now.timestamp())} -subject:({EMAIL_SUBJECT_PREFIX}) {GMAIL_FILTER_SUFFIX}".strip()
+    starting_time = now - datetime.timedelta(days=DIGEST_DAYS)
+
+    query = f"in:sent after:{int(starting_time.timestamp())} before:{int(now.timestamp())} -subject:({EMAIL_SUBJECT_PREFIX}) {GMAIL_FILTER_SUFFIX}".strip()
 
     log.info("searching for messages", query=query)
 
-    results = service.users().messages().list(userId="me", q=query, labelIds=["SENT"]).execute()
+    results = service.users().messages().list(userId="me", q=query).execute()
     messages = results.get("messages", [])
 
     log.info("messages found", count=len(messages))
@@ -296,7 +298,7 @@ def truncate_long_threads(message):
     """
 
     plain_text_message = message["plain_text"]
-    truncated_plain_text = plain_text_message.split("\n") | fp.remove("^>{2,}\s") | fp.join_str("\n")
+    truncated_plain_text = plain_text_message.split("\n") | fp.remove(r"^>{2,}\s") | fp.join_str("\n")
 
     message["truncated_plain_text"] = truncated_plain_text
     return message
