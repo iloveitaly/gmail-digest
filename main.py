@@ -1,6 +1,5 @@
 import os
 
-import click
 from apscheduler.schedulers.background import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
 
@@ -12,8 +11,8 @@ def handle_click_exit(func):
     def wrapper(*args, **kwargs):
         try:
             func(*args, **kwargs)
-        except click.exceptions.Exit as e:
-            if e.exit_code != 0:
+        except SystemExit as e:
+            if e.code != 0:
                 raise
 
     return wrapper
