@@ -1,3 +1,13 @@
+## [1.4.1](https://github.com/iloveitaly/gmail-digest/compare/v1.4.0...v1.4.1) (2024-08-12)
+
+
+### Bug Fixes
+
+* attempt another empty string prompt, use gmail filters for sent box ([63c8277](https://github.com/iloveitaly/gmail-digest/commit/63c827724c05f8e311edfa9fe53816e87bdd1909))
+* use SystemExit instead of click specific logic ([f0d3ffe](https://github.com/iloveitaly/gmail-digest/commit/f0d3ffe5e5f02b7c0ef45f18e9992dc345cedd5f))
+
+
+
 # [1.4.0](https://github.com/iloveitaly/gmail-digest/compare/v1.3.0...v1.4.0) (2024-08-08)
 
 
@@ -31,15 +41,6 @@
 ### Bug Fixes
 
 * do not send empty digests ([8c681f2](https://github.com/iloveitaly/gmail-digest/commit/8c681f2992f5716d969fc04ec5ebc4e2e7bff96f))
-
-
-
-## [1.2.4](https://github.com/iloveitaly/gmail-digest/compare/v1.2.3...v1.2.4) (2024-07-26)
-
-
-### Bug Fixes
-
-* bad regex ([20ec57e](https://github.com/iloveitaly/gmail-digest/commit/20ec57e1ca5098c48f7c0be3999ad2c470a66049))
 
 
 
