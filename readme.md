@@ -16,6 +16,12 @@ Options:
   --help     Show this message and exit.
 ```
 
+## Development
+
+Test the tool by running it locally and increasing `DIGEST_DAYS`.
+
+Need to debug OpenAI/prompt issues? [Enable debug logging.](https://stackoverflow.com/questions/76256249/logging-in-the-open-ai-python-library/78214464#78214464)
+
 ## Setup
 
 You need to create a "OAuth 2.0 Client IDs" which has to be done with a Google Workspace (gsuite). This will not work on a personal gmail account (unless you create a app on a workspace and add your personal account as a test account).
