@@ -16,6 +16,14 @@ Options:
   --help     Show this message and exit.
 ```
 
+### Extra filte
+
+You can customize the gmail query used to collect emails to summarize:
+
+```shell
+GMAIL_FILTER_SUFFIX=-to:personal@gmail.com -to:readwise.io -to:todoist.com
+```
+
 ## Development
 
 Test the tool by running it locally and increasing `DIGEST_DAYS`.
