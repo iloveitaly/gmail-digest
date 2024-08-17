@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gmail_digest"
-version = "1.4.1"
+version = "1.4.2"
 description = "A tool to generate a daily digest of your Gmail inbox. Helpful if you have agents working on your behalf."
 authors = ["Michael Bianco <mike@mikebian.co>"]
 license = "MIT"

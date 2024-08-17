@@ -1,3 +1,12 @@
+## [1.4.2](https://github.com/iloveitaly/gmail-digest/compare/v1.4.1...v1.4.2) (2024-08-17)
+
+
+### Bug Fixes
+
+* attempt to group messages to the same person via prompt ([7211952](https://github.com/iloveitaly/gmail-digest/commit/7211952d1d41a9481e71064bab49d0c68141c885))
+
+
+
 ## [1.4.1](https://github.com/iloveitaly/gmail-digest/compare/v1.4.0...v1.4.1) (2024-08-12)
 
 
@@ -32,15 +41,6 @@
 ### Bug Fixes
 
 * add prompt to determine if an assistant is scheduling ([5af3f7d](https://github.com/iloveitaly/gmail-digest/commit/5af3f7d0af34d8b08707fe0490c792e7fe52cd5a))
-
-
-
-## [1.2.5](https://github.com/iloveitaly/gmail-digest/compare/v1.2.4...v1.2.5) (2024-07-28)
-
-
-### Bug Fixes
-
-* do not send empty digests ([8c681f2](https://github.com/iloveitaly/gmail-digest/commit/8c681f2992f5716d969fc04ec5ebc4e2e7bff96f))
 
 
 
