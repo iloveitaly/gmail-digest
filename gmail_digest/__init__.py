@@ -68,7 +68,9 @@ def generate_digest_email(dry_run):
 Below are messages sent from my email account over the last day. I would like a concise summary of my activity over the last day. I am not the
 only one operating in my inbox.
 
-For each message, write a bullet indicating who the message is to and a one-sentence summary of what was said. If an assistant sent the message, include context about who the assistant is working for.
+For each message, write a bullet indicating who the message is to and a one-sentence summary of what was said.
+If an assistant sent the message, include context about who the assistant is working for. You can combine messages to the same
+person in a single longer bullet.
 
 Exclude:
 
