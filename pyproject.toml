@@ -13,14 +13,14 @@ keywords = ["gmail", "email", "gmail-api", "llm", "ai", "digest"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-google-api-python-client = "^2.140.0"
+google-api-python-client = "^2.142.0"
 python-decouple = "^3.8"
 google-auth-httplib2 = "^0.2.0"
 google-auth-oauthlib = "^1.2.1"
 click = "^8.1.7"
-markdown = "^3.6"
-funcy-pipe = "^0.11.0"
-openai = "^1.40.1"
+markdown = "^3.7"
+funcy-pipe = "^0.11.1"
+openai = "^1.42.0"
 structlog = "^24.4.0"
 apscheduler = "^3.10.4"
 autoflake = "^2.3.1"
