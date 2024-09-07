@@ -16,7 +16,7 @@ Options:
   --help     Show this message and exit.
 ```
 
-### Extra filte
+### Extra filter
 
 You can customize the gmail query used to collect emails to summarize:
 
