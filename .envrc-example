@@ -6,3 +6,4 @@ export SCHEDULE="0 8 * * *"
 
 # optional
 export GMAIL_FILTER_SUFFIX="-from:whoever"
+export HEARTBEAT_URL="https://your-heartbeat-url.com"

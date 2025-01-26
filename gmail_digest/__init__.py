@@ -32,14 +32,13 @@ DIGEST_DESTINATION = config("DIGEST_DESTINATION", cast=str)
 DIGEST_DAYS = config("DIGEST_DAYS", cast=int, default=1)
 SUPERHUMAN_LINK = config("SUPERHUMAN_LINK", cast=bool, default=True)
 
+EMAIL_SUBJECT_PREFIX = config("GMAIL_SUBJECT_PREFIX", default="Email Digest for ", cast=str)
+GMAIL_FILTER_SUFFIX = config("GMAIL_FILTER_SUFFIX", default="")
+
 TOKEN_PATH = root / "data/token.pickle"
 CREDENTIALS_PATH = root / "data/credentials.json"
 
 OPENAI_MODEL = "gpt-4o"
-
-EMAIL_SUBJECT_PREFIX = "Email Digest for "
-GMAIL_FILTER_SUFFIX = config("GMAIL_FILTER_SUFFIX", default="")
-
 
 @click.command()
 @click.option("--dry-run", is_flag=True, default=False, help="Run script without sending an email")
@@ -54,23 +53,25 @@ def generate_digest_email(dry_run):
 
     messages = get_sent_messages(service)
 
-    transformed_messages = (
+    formatted_markdown = (
         messages
         | fp.pluck("id")
         | fp.map(fp.partial(get_full_message, service))
+        | fp.compact()
         | fp.map(truncate_long_threads)
-        | fp.to_list()
+        | fp.sort(key="to")
+        | fp.map(format_message)
+        | fp.join_str("\n")
     )
-
-    formatted_markdown = transformed_messages | fp.map(format_message) | fp.join_str("\n")
 
     prompt_and_messages = f"""
 Below are messages sent from my email account over the last day. I would like a concise summary of my activity over the last day. I am not the
 only one operating in my inbox.
 
 For each message, write a bullet indicating who the message is to and a one-sentence summary of what was said.
-If an assistant sent the message, include context about who the assistant is working for. You can combine messages to the same
-person in a single longer bullet.
+If an assistant sent the message, include context about who the assistant is working for.
+
+If multiple emails were sent to the same contact, write a multi-sentence summary for all emails instead of a summary for each email message.
 
 Exclude:
 
@@ -86,6 +87,8 @@ Here are some example summaries to use as a template:
 These alphanumeric IDs are 'Message IDs' included right after the subject of the email. These are unique to each message.
 
 If you cannot generate a summary, return an empty string.
+
+Always use `*` for markdown bullets instead of `-`.
 
 Below are the messages:
 
@@ -198,6 +201,11 @@ def generate_superhuman_link(account_email: str, message_id: str) -> str:
 def get_full_message(service, message_id):
     # Fetch the full message using the Gmail API
     message = service.users().messages().get(userId="me", id=message_id, format="full").execute()
+
+    if "parts" not in message["payload"]:
+        # I've seen this happen with short messages where the plain text content is stored in `snippet` instead
+        log.warn("message has no parts", message_id=message_id)
+        return
 
     parts = message["payload"]["parts"]
 

@@ -2,10 +2,12 @@ import os
 
 from apscheduler.schedulers.background import BlockingScheduler
 from apscheduler.triggers.cron import CronTrigger
+from decouple import config
 
 from gmail_digest import main
 from gmail_digest.internet import wait_for_internet_connection
 
+HEARTBEAT_URL = config("HEARTBEAT_URL", default=None)
 
 def handle_click_exit(func):
     def wrapper(*args, **kwargs):
@@ -22,6 +24,15 @@ def job():
     wait_for_internet_connection()
 
     handle_click_exit(main)()
+
+    if HEARTBEAT_URL:
+        import requests
+        
+        try:
+            requests.get(HEARTBEAT_URL)
+        except requests.exceptions.RequestException:
+            pass
+        
 
 
 def cron():

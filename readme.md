@@ -21,7 +21,7 @@ Options:
 You can customize the gmail query used to collect emails to summarize:
 
 ```shell
-GMAIL_FILTER_SUFFIX=-to:personal@gmail.com -to:readwise.io -to:todoist.com
+GMAIL_FILTER_SUFFIX='-to:personal@gmail.com -to:readwise.io -to:todoist.com'
 ```
 
 ## Development
