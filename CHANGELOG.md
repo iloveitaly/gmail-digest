@@ -1,3 +1,12 @@
+# [1.5.0](https://github.com/iloveitaly/gmail-digest/compare/v1.4.2...v1.5.0) (2025-01-26)
+
+
+### Features
+
+* add heartbeat monitoring and enhance email digest ([1d50837](https://github.com/iloveitaly/gmail-digest/commit/1d5083791e410fe6da3773f19ab4f3600790e78f))
+
+
+
 ## [1.4.2](https://github.com/iloveitaly/gmail-digest/compare/v1.4.1...v1.4.2) (2024-08-17)
 
 
@@ -32,15 +41,6 @@
 ### Features
 
 * wait for internet connection ([6bfb06d](https://github.com/iloveitaly/gmail-digest/commit/6bfb06d66692aec23f598197f32e7ede039f6ecd))
-
-
-
-## [1.2.6](https://github.com/iloveitaly/gmail-digest/compare/v1.2.5...v1.2.6) (2024-07-31)
-
-
-### Bug Fixes
-
-* add prompt to determine if an assistant is scheduling ([5af3f7d](https://github.com/iloveitaly/gmail-digest/commit/5af3f7d0af34d8b08707fe0490c792e7fe52cd5a))
 
 
 
