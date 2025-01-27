@@ -1,3 +1,12 @@
+# [1.6.0](https://github.com/iloveitaly/gmail-digest/compare/v1.5.0...v1.6.0) (2025-01-27)
+
+
+### Features
+
+* enhance email digest prompt and update readme ([e0750f2](https://github.com/iloveitaly/gmail-digest/commit/e0750f2176d578e0df386f29416257924cf4e900))
+
+
+
 # [1.5.0](https://github.com/iloveitaly/gmail-digest/compare/v1.4.2...v1.5.0) (2025-01-26)
 
 
@@ -32,15 +41,6 @@
 ### Features
 
 * allow custom gmail search suffix ([8e93e1a](https://github.com/iloveitaly/gmail-digest/commit/8e93e1a7c9d629f4f972201923749d197eaffd07))
-
-
-
-# [1.3.0](https://github.com/iloveitaly/gmail-digest/compare/v1.2.6...v1.3.0) (2024-08-08)
-
-
-### Features
-
-* wait for internet connection ([6bfb06d](https://github.com/iloveitaly/gmail-digest/commit/6bfb06d66692aec23f598197f32e7ede039f6ecd))
 
 
 
