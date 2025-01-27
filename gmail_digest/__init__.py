@@ -65,13 +65,14 @@ def generate_digest_email(dry_run):
     )
 
     prompt_and_messages = f"""
-Below are messages sent from my email account over the last day. I would like a concise summary of my activity over the last day. I am not the
-only one operating in my inbox.
+Below are messages sent from my email account over the last day. Your job is to generate a concise summary of my
+activity over the last day. I am not the only one operating in my inbox.
 
 For each message, write a bullet indicating who the message is to and a one-sentence summary of what was said.
 If an assistant sent the message, include context about who the assistant is working for.
 
-If multiple emails were sent to the same contact, write a multi-sentence summary for all emails instead of a summary for each email message.
+If multiple emails were sent to the same contact, write a multi-sentence summary for all emails instead of a summary
+for each email message.
 
 Exclude:
 
@@ -86,7 +87,7 @@ Here are some example summaries to use as a template:
 
 These alphanumeric IDs are 'Message IDs' included right after the subject of the email. These are unique to each message.
 
-If you cannot generate a summary, return an empty string.
+If you cannot generate a summary, respond with "no messages to summarize".
 
 Always use `*` for markdown bullets instead of `-`.
 

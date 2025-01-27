@@ -1,5 +1,5 @@
-- [ ] dead man snitch
 - [ ] slack integration
 - [ ] flexible title + search exclusion
 - [ ] remove tracking stuff like `( https://link.iq.mileiq.com/ls/click?upn=u001.WgV9a8YpBofvWmS-2B-2BMh17mN44-2BfoNFB2rs3yKTxOqKM-3DhzWD_fQ8aDFAcnh73wIlGphPb-2BvzIX4Y3EmdY81-2FILYWRoa4uYOjyS-2BNbPanhDUl0ZdPOJp-2BBEs-2BJJK0c-2Bx57JX7PXLhlefjQKCgYAzcZwMJ-2Bo4uFhaqVn-2FhgB1j6gRyoSufNhPDz-2BWoxbbu7ZCcQwtSGpLD4paRbhABvEsczuyvL3brjGIXoILsT6q2u-2BQMu1iihuEYSiyvTroT2vLgQiTz2SrnjgE7-2BMu7sf9T3mQ1uCBEOshJCAqxy6Jh5DgJBG67NqtmnMbpz88LHFJ8q3Lor2HN58cYxu0Awgvn3s-2BqhnSJkORQpSQNVxwh7NL-2BtstYNpY28KwWMNPLQyZcmf-2FYMdJ-2F20kGbzULx78nEHjbMDgg74-2B-2BTEMTobh014dJnYnUBs4FEhNNZsfxqNeJoPz3J5iMGiwfGXrzzOJW3-2B3Ev87OM-2F7YhDYpUWQhk6aZ29ljRxJHEwTc-2FBaYhnSrlXn0DkSZdFOHOj4ujEFW3OZpKA85Jh0xTJmoHyeTi06OBxnwhDy3a9sgdxcRHMyel4hn9iirkSDfs6CVXMhZ8I2O0doAuPV0MT94fiSuVaUkRIZArLVaGkKrx3wYsNpp44R72MOv-2FR654Wl0RmLr9tyIeRhBZv1KGMfwUg4TNvfDTZTB5Q2EHAiCZJVdjvVbkvBeCUngY3b83EF-2F9eQHA-2FZR6rZtYuNYQOZ74uGJ93EQXtKO8c0Y4SjnTRgmFs44OFqcCVw-3D-3D )
 `
+- [ ] pull prompt into j2 template

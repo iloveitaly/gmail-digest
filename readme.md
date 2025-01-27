@@ -1,5 +1,9 @@
 # Gmail Digest
 
+If you have an assistant (real or AI) working in your inbox, it's helpful to know what they are doing. This tool generates a summary of the emails sent from your inbox each day.
+
+Alternatively, this could be used to monitor a support inbox, sales inbox, etc and understand what is happening across that inbox.
+
 ## Installation
 
 ```shell
@@ -14,6 +18,14 @@ Usage: gmail-digest [OPTIONS]
 Options:
   --dry-run  Run script without creating sending
   --help     Show this message and exit.
+```
+
+### Docker
+
+Check out the [docker-compose.yml file](./docker-compose.yml) for an example of how to run this tool in a docker container.
+
+```
+ghcr.io/iloveitaly/gmail-digest
 ```
 
 ### Extra filter
