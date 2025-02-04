@@ -30,7 +30,7 @@ backoff = "^2.2.1"
 gmail-digest = "gmail_digest:main"
 
 [tool.poetry.group.dev.dependencies]
-black = "^24.8.0"
+black = ">=24.8,<26.0"
 isort = ">=5.13.2,<7.0.0"
 
 [build-system]
