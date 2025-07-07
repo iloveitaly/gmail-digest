@@ -13,7 +13,6 @@ import funcy_pipe as fp
 import markdown
 from decouple import config
 from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from openai import OpenAI
@@ -87,7 +86,7 @@ Here are some example summaries to use as a template:
 
 These alphanumeric IDs are 'Message IDs' included right after the subject of the email. These are unique to each message.
 
-If you cannot generate a summary, respond with "no messages to summarize".
+If you cannot generate a summary, do not respond.
 
 Always use `*` for markdown bullets instead of `-`.
 
@@ -95,6 +94,9 @@ Below are the messages:
 
 {formatted_markdown}
 """
+    if not formatted_markdown.strip():
+        log.info("no messages to summarize")
+        return
 
     summary = ai_summary(prompt_and_messages)
 
