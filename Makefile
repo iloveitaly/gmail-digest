@@ -1,3 +1,6 @@
+clean:
+	rm -rf .venv
+
 lint:
 	poetry run black .
 	poetry run isort .
