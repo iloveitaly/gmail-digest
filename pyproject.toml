@@ -2,62 +2,58 @@
 name = "gmail_digest"
 version = "1.6.0"
 description = "A tool to generate a daily digest of your Gmail inbox. Helpful if you have agents working on your behalf."
-authors = [{ name = "Michael Bianco", email = "mike@mikebian.co" }]
 requires-python = "~=3.9"
 readme = "readme.md"
 license = "MIT"
-keywords = [
-    "gmail",
-    "email",
-    "gmail-api",
-    "llm",
-    "ai",
-    "digest",
-]
+keywords = [ "gmail", "email", "gmail-api", "llm", "ai", "digest" ]
 dependencies = [
-    "google-api-python-client>=2.142.0,<3",
-    "python-decouple~=3.8",
-    "google-auth-httplib2>=0.2.0,<0.3",
-    "google-auth-oauthlib>=1.2.1,<2",
-    "click>=8.1.7,<9",
-    "markdown~=3.7",
-    "funcy-pipe>=0.11.1,<0.12",
-    "openai>=1.42.0,<2",
-    "structlog>=24.4,<26.0",
-    "apscheduler>=3.10.4,<4",
-    "autoflake>=2.3.1,<3",
-    "backoff>=2.2.1,<3",
+  "google-api-python-client>=2.142.0,<3",
+  "python-decouple~=3.8",
+  "google-auth-httplib2>=0.2.0,<0.3",
+  "google-auth-oauthlib>=1.2.1,<2",
+  "click>=8.1.7,<9",
+  "markdown~=3.7",
+  "funcy-pipe>=0.11.1,<0.12",
+  "openai>=1.42.0,<2",
+  "structlog>=24.4,<26.0",
+  "apscheduler>=3.10.4,<4",
+  "autoflake>=2.3.1,<3",
+  "backoff>=2.2.1,<3"
 ]
 
-[project.urls]
-Changelog = "https://github.com/iloveitaly/gmail-digest/blob/master/CHANGELOG.md"
+  [[project.authors]]
+  name = "Michael Bianco"
+  email = "mike@mikebian.co"
 
-[project.scripts]
-gmail-digest = "gmail_digest:main"
+  [project.urls]
+  Changelog = "https://github.com/iloveitaly/gmail-digest/blob/master/CHANGELOG.md"
+
+  [project.scripts]
+  gmail-digest = "gmail_digest:main"
 
 [build-system]
-requires = ["hatchling"]
+requires = [ "hatchling" ]
 build-backend = "hatchling.build"
 
 [dependency-groups]
-dev = [
-    "black>=24.8,<26.0",
-    "isort>=5.13.2,<7.0.0",
-]
+dev = [ "black>=24.8,<26.0", "isort>=5.13.2,<7.0.0" ]
 
 [tool.black]
 line-length = 120
-target-version = ['py311']
-exclude = '''
+target-version = [ "py311" ]
+exclude = """
 /(
   .venv
   | node_modules
   | migrations
 )/
-'''
+"""
 
 [tool.isort]
 profile = "black"
 float_to_top = true
 multi_line_output = 3
 sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+
+[tool.poetry]
+version = "1.0.0"

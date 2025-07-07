@@ -1,3 +1,12 @@
+# [1.0.0](https://github.com/iloveitaly/gmail-digest/compare/v1.6.0...v1.0.0) (2025-07-07)
+
+
+### Bug Fixes
+
+* suppress summary if no messages to summarize ([bf4374e](https://github.com/iloveitaly/gmail-digest/commit/bf4374e0867b714443365ad260ea88c4004be0c8))
+
+
+
 # [1.6.0](https://github.com/iloveitaly/gmail-digest/compare/v1.5.0...v1.6.0) (2025-01-27)
 
 
@@ -32,15 +41,6 @@
 
 * attempt another empty string prompt, use gmail filters for sent box ([63c8277](https://github.com/iloveitaly/gmail-digest/commit/63c827724c05f8e311edfa9fe53816e87bdd1909))
 * use SystemExit instead of click specific logic ([f0d3ffe](https://github.com/iloveitaly/gmail-digest/commit/f0d3ffe5e5f02b7c0ef45f18e9992dc345cedd5f))
-
-
-
-# [1.4.0](https://github.com/iloveitaly/gmail-digest/compare/v1.3.0...v1.4.0) (2024-08-08)
-
-
-### Features
-
-* allow custom gmail search suffix ([8e93e1a](https://github.com/iloveitaly/gmail-digest/commit/8e93e1a7c9d629f4f972201923749d197eaffd07))
 
 
 
